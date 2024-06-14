@@ -231,7 +231,7 @@ namespace HKX2
             throw new NotImplementedException();
         }
 
-        public void WriteQSTransformArray(BinaryWriterEx bw, List<Matrix4x4> d)
+        public void WriteQSTransformArray(BinaryWriterEx bw, List<hkQsTransform> d)
         {
             throw new NotImplementedException();
         }

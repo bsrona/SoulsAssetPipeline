@@ -142,7 +142,7 @@ namespace Havoc.IO.Tagfile.Binary
             mReader.BaseStream.Seek( section.Position, SeekOrigin.Begin );
             while (mReader.BaseStream.Position < section.Position + section.Length) {
                 var typeIndex = mReader.ReadInt32();
-                var type = mTypes[typeIndex];
+                var type = mTypes[typeIndex - 1];
                 var count = mReader.ReadInt32();
                 Debug.ReadProcess($"PTCH: type {type}({typeIndex}), count {count}");
                 mPatches[type] = new uint[count];
@@ -175,7 +175,7 @@ namespace Havoc.IO.Tagfile.Binary
                     }
 
                     case "PTCH":
-                        // ReadPatchSection(subSection);
+                        ReadPatchSection(subSection);
                         break;
 
                     default:
@@ -448,7 +448,7 @@ namespace Havoc.IO.Tagfile.Binary
                     //     }
                     // }
 
-                    if (IsArray && (Type.ToString() == "hkStringPtr" || Type.IsPtr)) {
+                    if (IsArray && (Type.ToString() == "hkStringPtr")) {
                         patchedOffset = Position + i * 4; // FIXME: hacky solution for array
                     }
                     
@@ -594,7 +594,7 @@ namespace Havoc.IO.Tagfile.Binary
 
                     case HkTypeFormat.FloatingPoint: {
                         return
-                            type.IsHalf ? new HkHalf(type, mTag.mReader.ReadHalf()) :
+                            type.IsHalf ? new HkHalf(type, mTag.mReader.ReadInt16()) :
                             type.IsSingle ? new HkSingle( type, mTag.mReader.ReadSingle() ) :
                             type.IsDouble ? ( IHkObject ) new HkDouble( type, mTag.mReader.ReadDouble() ) :
                             throw new InvalidDataException( "Unexpected floating point format" );

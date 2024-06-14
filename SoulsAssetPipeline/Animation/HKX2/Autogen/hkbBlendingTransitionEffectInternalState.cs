@@ -14,7 +14,7 @@ namespace HKX2
         public Quaternion m_toRot;
         public Vector4 m_lastPos;
         public Quaternion m_lastRot;
-        public List<Matrix4x4> m_characterPoseAtBeginningOfTransition;
+        public List<hkQsTransform> m_characterPoseAtBeginningOfTransition;
         public float m_timeRemaining;
         public float m_timeInTransition;
         public SelfTransitionMode m_toGeneratorSelfTranstitionMode;

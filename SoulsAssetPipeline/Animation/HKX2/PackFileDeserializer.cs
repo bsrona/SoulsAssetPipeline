@@ -328,7 +328,7 @@ namespace HKX2
             throw new NotImplementedException();
         }
 
-        public List<Matrix4x4> ReadQSTransformArray(BinaryReaderEx br)
+        public List<hkQsTransform> ReadQSTransformArray(BinaryReaderEx br)
         {
             throw new NotImplementedException();
         }

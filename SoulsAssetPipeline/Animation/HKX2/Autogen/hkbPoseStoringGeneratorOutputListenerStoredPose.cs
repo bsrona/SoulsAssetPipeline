@@ -9,7 +9,7 @@ namespace HKX2
         public override uint Signature { get => 223379314; }
         
         public hkbNode m_node;
-        public List<Matrix4x4> m_pose;
+        public List<hkQsTransform> m_pose;
         public Matrix4x4 m_worldFromModel;
         public bool m_isPoseValid;
         

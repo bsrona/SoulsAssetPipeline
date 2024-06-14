@@ -12,8 +12,8 @@ namespace HKX2
         public hkbGeneratorPartitionInfo m_fromGeneratorPartitionInfo;
         public Matrix4x4 m_worldFromModel;
         public Matrix4x4 m_motion;
-        public List<Matrix4x4> m_pose;
-        public List<Matrix4x4> m_additivePose;
+        public List<hkQsTransform> m_pose;
+        public List<hkQsTransform> m_additivePose;
         public List<float> m_boneWeights;
         public float m_toGeneratorDuration;
         public bool m_isFromGeneratorActive;

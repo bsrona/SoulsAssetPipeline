@@ -1,12 +1,18 @@
 ﻿using Havoc.IO.Tagfile.Binary;
 using Havoc.Objects;
 using Havoc.Reflection;
+using HKX2;
 using SoulsFormats;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Numerics;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace SoulsAssetPipeline.Animation
 {
@@ -434,5 +440,324 @@ namespace SoulsAssetPipeline.Animation
             }
             return meme;
         }
-    }
+
+		private static object _lock_Load = new object();
+		public static IHavokObject Load(byte[] tagFile, byte[] compendium = null)
+		{
+			lock (_lock_Load)
+			{
+                Dictionary<HkClass, IHavokObject> objectDic = new Dictionary<HkClass, IHavokObject>();
+				HkClass rootObject = HkBinaryTagfileReader.Read(tagFile, compendium) as HkClass;
+                IHavokObject havokObject = CreateHKObject(rootObject, objectDic);
+				return havokObject;
+			}
+		}
+
+        static IHavokObject CreateHKObject(HkClass streamObject, Dictionary<HkClass, IHavokObject> objectDic)
+        {
+            IHavokObject hkObject = null;
+
+            if (objectDic.TryGetValue(streamObject, out hkObject))
+            {
+                return hkObject;
+            }
+
+            HkType hkType = streamObject.Type;
+            hkObject = CreateHKObject(hkType);
+
+            if (hkObject != null)
+            {
+				objectDic.Add(streamObject, hkObject);
+
+				IReadOnlyDictionary<HkField, IHkObject> hkFieldDic = streamObject.Value as IReadOnlyDictionary<HkField, IHkObject>;
+
+				Type type = hkObject.GetType();
+                FieldInfo[] fields = type.GetFields();
+                foreach (var pair in hkFieldDic)
+                {
+                    HkField hkField = pair.Key;
+                    FieldInfo field = FindFieldInfo(fields, hkField);
+                    if (field == null)
+                        continue;
+
+                    IHkObject value = pair.Value;
+                    SetHKField(hkObject, field, value, objectDic);
+                }
+
+				for (int i = 0; i < fields.Length; ++i)
+				{
+					FieldInfo field = fields[i];
+					IHkObject value = FindHKField(field, hkFieldDic);
+					if (value == null)
+						continue;
+					//SetHKField(hkObject, field, value, objectDic);
+				}
+			}
+
+			return hkObject;
+		}
+
+		static readonly Type[] ConstructorParameters = new Type[0];
+		static IHavokObject CreateHKObject(HkType hkType)
+		{
+			string hkTypeName = hkType.Name;
+            hkTypeName = hkTypeName.Replace("::", "");
+			Type type = Type.GetType($"HKX2.{hkTypeName}");
+			ConstructorInfo constructorInfo = type.GetConstructor(ConstructorParameters);
+			IHavokObject hkObject = constructorInfo.Invoke(null) as IHavokObject;
+			return hkObject;
+		}
+
+		static IHkObject FindHKField(FieldInfo fieldInfo, IReadOnlyDictionary<HkField, IHkObject> hkFieldDic)
+		{
+			foreach(var pair in hkFieldDic)
+			{
+				HkField field = pair.Key;
+				IHkObject value = pair.Value;
+
+				if (fieldInfo.Name.Substring(2) != field.Name)
+					continue;
+
+				return value;
+			}
+
+			return null;
+		}
+
+		static FieldInfo FindFieldInfo(FieldInfo[] fields, HkField hkField)
+        {
+            FieldInfo fieldInfo = Array.Find(fields, e => e.Name.Substring(2) == hkField.Name);
+            return fieldInfo;
+		}
+
+		static void SetHKField(IHavokObject hkObject, FieldInfo fieldInfo, IHkObject hkValueObject, Dictionary<HkClass, IHavokObject> objectDic)
+		{
+            object value = ConvertHkValue(hkValueObject, objectDic);
+
+            if (hkValueObject.Type.Format == HkTypeFormat.Array)
+            {
+				List<object> elements = value as List<object>;
+                if (elements != null)
+                {
+					value = Activator.CreateInstance(fieldInfo.FieldType);
+					AddElements(value, elements);
+				}
+			}
+
+			fieldInfo.SetValue(hkObject, value);
+		}
+
+        static object ConvertHkValue(IHkObject hkValue, Dictionary<HkClass, IHavokObject> objectDic)
+        {
+            object value = null;
+
+		    HkType hkType = hkValue.Type;
+			switch (hkType.Format)
+			{
+				case HkTypeFormat.Void:
+				case HkTypeFormat.Opaque:
+					break;
+
+				case HkTypeFormat.Bool:
+					{
+						var valueObject = hkValue as HkBool;
+                        value = valueObject.Value;
+					}
+                    break;
+
+				case HkTypeFormat.String:
+					{
+                        var valueObject = hkValue as HkString;
+						value = valueObject.Value;
+					}
+                    break;
+
+				case HkTypeFormat.Int:
+					{
+                        int bitCount = hkType.BitCount;
+                        bool isSigned = hkType.IsSigned;
+						switch(bitCount)
+						{
+							case 8:
+                                {
+                                    if (isSigned)
+                                    {
+										var valueObject = hkValue as HkSByte;
+										value = valueObject.Value;
+									}
+									else
+                                    {
+										var valueObject = hkValue as HkByte;
+										value = valueObject.Value;
+									}
+								}
+								break;
+
+							case 16:
+								{
+									if(isSigned)
+									{
+										var valueObject = hkValue as HkInt16;
+										value = valueObject.Value;
+									}
+									else
+									{
+										var valueObject = hkValue as HkUInt16;
+										value = valueObject.Value;
+									}
+								}
+								break;
+
+							case 32:
+								{
+									if(isSigned)
+									{
+										var valueObject = hkValue as HkInt32;
+										value = valueObject.Value;
+									}
+									else
+									{
+										var valueObject = hkValue as HkUInt32;
+										value = valueObject.Value;
+									}
+								}
+								break;
+
+							case 64:
+								{
+									if(isSigned)
+									{
+										var valueObject = hkValue as HkInt64;
+										value = valueObject.Value;
+									}
+									else
+									{
+										var valueObject = hkValue as HkUInt64;
+										value = valueObject.Value;
+									}
+								}
+								break;
+
+							default:
+								throw new InvalidDataException($"Unexpected bit count: {bitCount}");
+						}
+					}
+                    break;
+
+				case HkTypeFormat.FloatingPoint:
+					{
+						if (hkType.IsHalf)
+                        {
+                            var valueObject = hkValue as HkHalf;
+                            value = new hknpHalf() { m_value = valueObject.Value };
+                        }
+                        else if (hkType.IsSingle)
+						{
+							var valueObject = hkValue as HkSingle;
+							value = valueObject.Value;
+						}
+						else if(hkType.IsDouble)
+						{
+							var valueObject = hkValue as HkDouble;
+							value = valueObject.Value;
+						}
+						else
+						{
+							throw new InvalidDataException("Unexpected floating point format");
+						}
+					}
+                    break;
+
+				case HkTypeFormat.Ptr:
+					{
+                        var valueObject = hkValue as HkPtr;
+                        HkClass pointHKObject = valueObject.Value as HkClass;
+                        if (pointHKObject != null)
+                            value = CreateHKObject(pointHKObject, objectDic);
+					}
+                    break;
+
+				case HkTypeFormat.Class:
+					{
+                        var valueObject = hkValue as HkClass;
+						value = CreateHKObject(valueObject, objectDic);
+					}
+                    break;
+
+				case HkTypeFormat.Array:
+					{
+						var valueObject = hkValue as HkArray;
+						IReadOnlyList<IHkObject> elements = valueObject.Value;
+
+                        if (elements != null)
+                        {
+							var array = new List<object>(elements.Count);
+
+							for (int i = 0; i < elements.Count; ++i)
+							{
+								var element = elements[i];
+								object elementObject = ConvertHkValue(element, objectDic);
+								array.Add(elementObject);
+							}
+
+							if (hkType.Name == "hkVector4" || hkType.Name == "hkVector4f")
+							{
+								Vector4 result = new Vector4((float)array[0], (float)array[1], (float)array[2], (float)array[3]);
+								value = result;
+							}
+							else if (hkType.Name == "hkQuaternion" || hkType.Name == "hkQuaternionf")
+							{
+								Quaternion result = new Quaternion((float)array[0], (float)array[1], (float)array[2], (float)array[3]);
+								value = result;
+							}
+							else if(hkType.Name == "hkTransform" || hkType.Name == "hkTransformf")
+							{
+								Matrix4x4 result = new Matrix4x4
+                                (
+                                    (float)array[0], (float)array[1], (float)array[2], (float)array[3],
+									(float)array[4], (float)array[5], (float)array[6], (float)array[7],
+									(float)array[8], (float)array[9], (float)array[10], (float)array[11],
+									(float)array[12], (float)array[13], (float)array[14], (float)array[15]
+								);
+								value = result;
+							}
+							else if(hkType.Name == "hkMatrix3" || hkType.Name == "hkMatrix3")
+							{
+								Matrix4x4 result = new Matrix4x4
+								(
+									(float)array[0], (float)array[1], (float)array[2], (float)array[3],
+									(float)array[4], (float)array[5], (float)array[6], (float)array[7],
+									(float)array[8], (float)array[9], (float)array[10], (float)array[11],
+									0, 0, 0, 1
+								);
+								value = result;
+							}
+							else
+							{
+								value = array;
+							}
+						}
+					}
+                    break;
+
+				default:
+					throw new ArgumentOutOfRangeException(nameof(hkType.Format));
+			}
+
+            return value;
+        }
+
+        static void AddElements(object target, List<object> source)
+        {
+            MethodInfo method = target.GetType().GetMethod("Add");
+            object[] parameters = new object[1];
+
+            for (int i = 0; i < source.Count; ++i)
+            {
+                object element = source[i];
+                parameters[0] = element;
+                method.Invoke(target, parameters);
+            }
+        }
+	}
 }

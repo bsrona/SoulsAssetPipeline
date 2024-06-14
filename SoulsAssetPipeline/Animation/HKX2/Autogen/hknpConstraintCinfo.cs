@@ -9,17 +9,27 @@ namespace HKX2
         public virtual uint Signature { get => 1743427693; }
         
         public hkpConstraintData m_constraintData;
-        public uint m_bodyA;
-        public uint m_bodyB;
-        public byte m_flags;
+        public hknpBodyId m_bodyA;
+        public hknpBodyId m_bodyB;
+        public ushort m_flags;
+        public string m_name;
+        public hknpConstraintId m_desiredConstraintId;
+        public hknpConstraintGroupId m_constraintGroupId;
         
         public virtual void Read(PackFileDeserializer des, BinaryReaderEx br)
         {
             m_constraintData = des.ReadClassPointer<hkpConstraintData>(br);
-            m_bodyA = br.ReadUInt32();
-            m_bodyB = br.ReadUInt32();
-            m_flags = br.ReadByte();
-            br.ReadUInt32();
+            m_bodyA = new hknpBodyId();
+            m_bodyA.Read(des, br);
+            m_bodyB = new hknpBodyId();
+            m_bodyB.Read(des, br);
+            m_flags = br.ReadUInt16();
+            m_name = des.ReadStringPointer(br);
+            m_desiredConstraintId = new hknpConstraintId();
+            m_desiredConstraintId.Read(des, br);
+			m_constraintGroupId = new hknpConstraintGroupId();
+			m_constraintGroupId.Read(des, br);
+			br.ReadUInt32();
             br.ReadUInt16();
             br.ReadByte();
         }
@@ -27,10 +37,13 @@ namespace HKX2
         public virtual void Write(PackFileSerializer s, BinaryWriterEx bw)
         {
             s.WriteClassPointer<hkpConstraintData>(bw, m_constraintData);
-            bw.WriteUInt32(m_bodyA);
-            bw.WriteUInt32(m_bodyB);
-            bw.WriteByte(m_flags);
-            bw.WriteUInt32(0);
+            m_bodyA.Write(s, bw);
+            m_bodyA.Write(s, bw);
+            bw.WriteUInt16(m_flags);
+            s.WriteStringPointer(bw, m_name);
+            m_desiredConstraintId.Write(s, bw);
+			m_constraintGroupId.Write(s, bw);
+			bw.WriteUInt32(0);
             bw.WriteUInt16(0);
             bw.WriteByte(0);
         }

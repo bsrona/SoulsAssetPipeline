@@ -16,7 +16,7 @@ namespace HKX2
         public string m_remoteScriptsPath;
         public hkaSkeleton m_skeleton;
         public Matrix4x4 m_worldFromModel;
-        public List<Matrix4x4> m_poseModelSpace;
+        public List<hkQsTransform> m_poseModelSpace;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {

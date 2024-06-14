@@ -4,20 +4,20 @@ using System.Numerics;
 
 namespace HKX2
 {
-    public partial class hkPackedVector3 : IHavokObject
+   public partial class hknpBodyId : IHavokObject
     {
-        public virtual uint Signature { get => 2191969155; }
+        public virtual uint Signature { get => 42283992; }
         
-        public List<short> m_values;
+        public uint m_serialAndIndex;
         
         public virtual void Read(PackFileDeserializer des, BinaryReaderEx br)
         {
-            des.ReadInt16Array(br);
+            m_serialAndIndex = br.ReadUInt32();
         }
         
         public virtual void Write(PackFileSerializer s, BinaryWriterEx bw)
         {
-            s.WriteInt16Array(bw, m_values);
+            bw.WriteUInt32(m_serialAndIndex);
         }
     }
 }

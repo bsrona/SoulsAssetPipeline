@@ -8,7 +8,7 @@ namespace HKX2
     {
         public override uint Signature { get => 2783966194; }
         
-        public List<Matrix4x4> m_transforms;
+        public List<hkQsTransform> m_transforms;
         public List<float> m_floats;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)

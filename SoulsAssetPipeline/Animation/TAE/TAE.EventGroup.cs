@@ -60,7 +60,7 @@ namespace SoulsAssetPipeline.Animation
                 public sbyte Block;
             }
 
-            internal List<int> indices;
+            public List<int> indices;
 
             /// <summary>
             /// Creates a new empty EventGroup with the given type.

@@ -11,6 +11,7 @@ namespace HKX2
         public List<Vector4> m_planes;
         public List<hknpConvexPolytopeShapeFace> m_faces;
         public List<byte> m_indices;
+        public hknpConvexPolytopeShapeConnectivity m_connectivity;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {

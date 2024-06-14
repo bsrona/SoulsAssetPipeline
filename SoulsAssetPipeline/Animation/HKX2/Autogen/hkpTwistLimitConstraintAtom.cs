@@ -14,6 +14,7 @@ namespace HKX2
         public float m_minAngle;
         public float m_maxAngle;
         public float m_angularLimitsTauFactor;
+        public float m_angularLimitsDampFactor;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {
@@ -26,6 +27,7 @@ namespace HKX2
             m_minAngle = br.ReadSingle();
             m_maxAngle = br.ReadSingle();
             m_angularLimitsTauFactor = br.ReadSingle();
+            m_angularLimitsDampFactor = br.ReadSingle();
             br.ReadUInt64();
             br.ReadUInt32();
         }
@@ -41,6 +43,7 @@ namespace HKX2
             bw.WriteSingle(m_minAngle);
             bw.WriteSingle(m_maxAngle);
             bw.WriteSingle(m_angularLimitsTauFactor);
+            bw.WriteSingle(m_angularLimitsDampFactor);
             bw.WriteUInt64(0);
             bw.WriteUInt32(0);
         }

@@ -19,14 +19,14 @@ namespace SoulsAssetPipeline.AnimationExporting
 
             scene.RootNode = new Node("scene_root");
 
-            scene.RootNode.Metadata["FrameRate"] = new Metadata.Entry(MetaDataType.Int32, 14);
+            scene.RootNode.Metadata["FrameRate"] = new Metadata.Entry(MetaDataType.Int, 14);
             scene.RootNode.Metadata["TimeSpanStart"] = new Metadata.Entry(MetaDataType.UInt64, (ulong)0);
             scene.RootNode.Metadata["TimeSpanStop"] = new Metadata.Entry(MetaDataType.UInt64, (ulong)0);
             scene.RootNode.Metadata["CustomFrameRate"] = new Metadata.Entry(MetaDataType.Float, 1f / anim.FrameDuration);
 
-            scene.RootNode.Metadata["FrontAxisSign"] = new Metadata.Entry(MetaDataType.Int32, -1);
-            scene.RootNode.Metadata["OriginalUnitScaleFactor"] = new Metadata.Entry(MetaDataType.Int32, 100);
-            scene.RootNode.Metadata["UnitScaleFactor"] = new Metadata.Entry(MetaDataType.Int32, 100);
+            scene.RootNode.Metadata["FrontAxisSign"] = new Metadata.Entry(MetaDataType.Int, -1);
+            scene.RootNode.Metadata["OriginalUnitScaleFactor"] = new Metadata.Entry(MetaDataType.Int, 100);
+            scene.RootNode.Metadata["UnitScaleFactor"] = new Metadata.Entry(MetaDataType.Int, 100);
 
 
 

@@ -11,7 +11,7 @@ namespace HKX2
         public string m_name;
         public List<short> m_parentIndices;
         public List<hkaBone> m_bones;
-        public List<Matrix4x4> m_referencePose;
+        public List<hkQsTransform> m_referencePose;
         public List<float> m_referenceFloats;
         public List<string> m_floatSlots;
         public List<hkaSkeletonLocalFrameOnBone> m_localFrames;

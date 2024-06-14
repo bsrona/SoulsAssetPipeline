@@ -27,7 +27,7 @@ namespace HKX2
         public List<uint> m_materials;
         public List<ushort> m_materials16;
         public List<byte> m_materials8;
-        public List<Matrix4x4> m_transforms;
+        public List<hkQsTransform> m_transforms;
         public List<Vector4> m_bigVertices;
         public List<hkpCompressedMeshShapeBigTriangle> m_bigTriangles;
         public List<hkpCompressedMeshShapeChunk> m_chunks;

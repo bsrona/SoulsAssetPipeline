@@ -6,7 +6,7 @@ namespace Havoc.Objects
     // hkHalf16
     public class HkHalf : IHkObject
     {
-        public HkHalf( HkType type, Half value ) {
+        public HkHalf( HkType type, short value ) {
             if ( !type.IsHalf )
                 throw new ArgumentException( "Type must be of a float16 type.", nameof( type ) );
 
@@ -14,7 +14,7 @@ namespace Havoc.Objects
             Value = value;
         }
 
-        public Half Value { get; }
+        public short Value { get; }
         public HkType Type { get; }
 
         object IHkObject.Value => Value;

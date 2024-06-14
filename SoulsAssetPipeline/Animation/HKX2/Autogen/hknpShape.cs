@@ -38,9 +38,10 @@ namespace HKX2
             IS_QUAD_SHAPE = 4096,
         }
         
-        public ushort m_flags;
+        public FlagsEnum m_flags;
+        public hknpShapeType.Enum m_type;
         public byte m_numShapeKeyBits;
-        public Enum m_dispatchType;
+        public hknpCollisionDispatchType.Enum m_dispatchType;
         public float m_convexRadius;
         public ulong m_userData;
         public hkRefCountedProperties m_properties;
@@ -48,9 +49,10 @@ namespace HKX2
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {
             base.Read(des, br);
-            m_flags = br.ReadUInt16();
+            m_flags = (FlagsEnum)br.ReadUInt16();
+            m_type = (hknpShapeType.Enum)br.ReadByte();
             m_numShapeKeyBits = br.ReadByte();
-            m_dispatchType = (Enum)br.ReadByte();
+            m_dispatchType = (hknpCollisionDispatchType.Enum)br.ReadByte();
             m_convexRadius = br.ReadSingle();
             m_userData = br.ReadUInt64();
             m_properties = des.ReadClassPointer<hkRefCountedProperties>(br);
@@ -60,7 +62,8 @@ namespace HKX2
         public override void Write(PackFileSerializer s, BinaryWriterEx bw)
         {
             base.Write(s, bw);
-            bw.WriteUInt16(m_flags);
+            bw.WriteUInt16((ushort)m_flags);
+            bw.WriteByte((byte)m_type);
             bw.WriteByte(m_numShapeKeyBits);
             bw.WriteByte((byte)m_dispatchType);
             bw.WriteSingle(m_convexRadius);
