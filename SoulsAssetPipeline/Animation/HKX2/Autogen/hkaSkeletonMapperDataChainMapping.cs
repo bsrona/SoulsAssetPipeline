@@ -12,8 +12,8 @@ namespace HKX2
         public short m_endBoneA;
         public short m_startBoneB;
         public short m_endBoneB;
-        public Matrix4x4 m_startAFromBTransform;
-        public Matrix4x4 m_endAFromBTransform;
+        public hkQsTransform m_startAFromBTransform;
+        public hkQsTransform m_endAFromBTransform;
         
         public virtual void Read(PackFileDeserializer des, BinaryReaderEx br)
         {
@@ -22,8 +22,10 @@ namespace HKX2
             m_startBoneB = br.ReadInt16();
             m_endBoneB = br.ReadInt16();
             br.ReadUInt64();
-            m_startAFromBTransform = des.ReadQSTransform(br);
-            m_endAFromBTransform = des.ReadQSTransform(br);
+            m_startAFromBTransform = new hkQsTransform();
+            m_startAFromBTransform.Read(des, br);
+            m_endAFromBTransform = new hkQsTransform();
+			m_endAFromBTransform.Read(des, br);
         }
         
         public virtual void Write(PackFileSerializer s, BinaryWriterEx bw)
@@ -33,8 +35,8 @@ namespace HKX2
             bw.WriteInt16(m_startBoneB);
             bw.WriteInt16(m_endBoneB);
             bw.WriteUInt64(0);
-            s.WriteQSTransform(bw, m_startAFromBTransform);
-            s.WriteQSTransform(bw, m_endAFromBTransform);
+            m_startAFromBTransform.Write(s, bw);
+            m_endAFromBTransform.Write(s, bw);
         }
     }
 }
