@@ -15,6 +15,7 @@ namespace HKX2
     {
         public override uint Signature { get => 2556314263; }
         
+        public hkaReferenceFrameTypeEnum m_frameType;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {

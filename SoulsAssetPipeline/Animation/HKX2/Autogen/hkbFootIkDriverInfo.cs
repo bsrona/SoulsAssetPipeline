@@ -4,7 +4,7 @@ using System.Numerics;
 
 namespace HKX2
 {
-    public partial class hkbFootIkDriverInfo : hkReferencedObject
+    public partial class hkbFootIkDriverInfo : hkbCustomPropertySheet
     {
         public override uint Signature { get => 4188569481; }
         
@@ -21,6 +21,7 @@ namespace HKX2
         public bool m_useCharacterUpVector;
         public bool m_isQuadrupedNarrow;
         public bool m_keepSourceFootEndAboveGround;
+        public bool m_usefootEndToOnlyHeelRay;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {

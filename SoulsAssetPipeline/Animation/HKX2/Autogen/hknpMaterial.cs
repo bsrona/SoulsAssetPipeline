@@ -14,9 +14,10 @@ namespace HKX2
     
     public enum CombinePolicy
     {
-        COMBINE_AVG = 0,
+        COMBINE_GEOMETRIC_MEAN = 0,
         COMBINE_MIN = 1,
         COMBINE_MAX = 2,
+        COMBINE_ARITHMETIC_MEAN = 3,
     }
     
     public enum MassChangerCategory

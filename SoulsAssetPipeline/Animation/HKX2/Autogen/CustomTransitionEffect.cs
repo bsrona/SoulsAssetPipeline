@@ -8,6 +8,8 @@ namespace HKX2
     {
         public override uint Signature { get => 1219847490; }
         
+        public float m_durationBackup;
+        public bool m_calcDuration;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {

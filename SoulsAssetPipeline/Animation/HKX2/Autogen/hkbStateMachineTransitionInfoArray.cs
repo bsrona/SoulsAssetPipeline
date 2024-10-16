@@ -9,6 +9,8 @@ namespace HKX2
         public override uint Signature { get => 1883904431; }
         
         public List<hkbStateMachineTransitionInfo> m_transitions;
+        public bool m_hasEventlessTransitions;
+        public bool m_hasTimeBoundedTransitions;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {

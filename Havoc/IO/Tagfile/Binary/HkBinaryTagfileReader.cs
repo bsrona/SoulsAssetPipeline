@@ -449,7 +449,7 @@ namespace Havoc.IO.Tagfile.Binary
                     // }
 
                     if (IsArray && (Type.ToString() == "hkStringPtr")) {
-                        patchedOffset = Position + i * 4; // FIXME: hacky solution for array
+                        //patchedOffset = Position + i * 4; // FIXME: hacky solution for array
                     }
                     
                     if (objIdx >= 40000000 && Type.ToString() != "char") {

@@ -30,6 +30,21 @@ namespace HKX2
         public EndMode m_endMode;
         public BlendCurve m_blendCurve;
         public short m_alignmentBone;
+        public Vector4 m_fromPos;
+        public Quaternion m_fromRot;
+        public Vector4 m_toPos;
+        public Quaternion m_toRot;
+        public Vector4 m_lastPos;
+        public Quaternion m_lastRot;
+        public List<hkReflectDetailOpaque> m_characterPoseAtBeginningOfTransition;
+        public float m_timeRemaining;
+        public float m_timeInTransition;
+        public SelfTransitionMode m_toGeneratorSelfTranstitionMode;
+        public bool m_initializeCharacterPose;
+        public bool m_alignThisFrame;
+        public bool m_alignmentFinished;
+        public hkReflectDetailOpaque m_parentStateMachine;
+        public bool m_toGeneratorIsCurrentState;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {

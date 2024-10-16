@@ -15,27 +15,18 @@ namespace HKX2
             HAS_NULLS = 4,
         }
         
-        public uint m_data_0;
-        public uint m_data_1;
-        public uint m_data_2;
-        public uint m_data_3;
+        public List<uint> m_data;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {
             base.Read(des, br);
-            m_data_0 = br.ReadUInt32();
-            m_data_1 = br.ReadUInt32();
-            m_data_2 = br.ReadUInt32();
-            m_data_3 = br.ReadUInt32();
+            m_data = des.ReadUInt32Array(br);
         }
         
         public override void Write(PackFileSerializer s, BinaryWriterEx bw)
         {
             base.Write(s, bw);
-            bw.WriteUInt32(m_data_0);
-            bw.WriteUInt32(m_data_1);
-            bw.WriteUInt32(m_data_2);
-            bw.WriteUInt32(m_data_3);
+            s.WriteUInt32Array(bw, m_data);
         }
     }
 }

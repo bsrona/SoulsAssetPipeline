@@ -9,6 +9,7 @@ namespace HKX2
         public override uint Signature { get => 3356616716; }
         
         public bool m_enable;
+        public List<bool> m_padModifier;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {

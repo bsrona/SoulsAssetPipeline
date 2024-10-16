@@ -28,6 +28,9 @@ namespace HKX2
         public SetAngleMethod m_setAngleMethod;
         public RotationAxisCoordinates m_rotationAxisCoordinates;
         public bool m_isAdditive;
+        public List<hkReflectDetailOpaque> m_boneChainIndices;
+        public List<hkReflectDetailOpaque> m_parentBoneIndices;
+
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {

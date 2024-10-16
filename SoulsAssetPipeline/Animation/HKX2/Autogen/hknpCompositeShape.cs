@@ -10,6 +10,7 @@ namespace HKX2
         
         public hknpSparseCompactMapunsignedshort m_edgeWeldingMap;
         public uint m_shapeTagCodecInfo;
+        public hkReferencedObject m_materialTable;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {
@@ -17,6 +18,7 @@ namespace HKX2
             m_edgeWeldingMap = new hknpSparseCompactMapunsignedshort();
             m_edgeWeldingMap.Read(des, br);
             m_shapeTagCodecInfo = br.ReadUInt32();
+            des.ReadClassPointer<hkReferencedObject>(br);
             br.ReadUInt32();
         }
         
@@ -25,6 +27,7 @@ namespace HKX2
             base.Write(s, bw);
             m_edgeWeldingMap.Write(s, bw);
             bw.WriteUInt32(m_shapeTagCodecInfo);
+            s.WriteClassPointer<hkReferencedObject>(bw, m_materialTable);
             bw.WriteUInt32(0);
         }
     }

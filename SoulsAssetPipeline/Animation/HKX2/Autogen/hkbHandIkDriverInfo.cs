@@ -4,7 +4,7 @@ using System.Numerics;
 
 namespace HKX2
 {
-    public partial class hkbHandIkDriverInfo : hkReferencedObject
+    public partial class hkbHandIkDriverInfo : hkbCustomPropertySheet
     {
         public override uint Signature { get => 1051412465; }
         

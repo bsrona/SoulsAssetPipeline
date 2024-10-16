@@ -14,6 +14,8 @@ namespace HKX2
         public float m_newTargetGain;
         public float m_onGain;
         public float m_offGain;
+        public CustomLookAtTwistModifier.GainState m_gainStateX;
+        public CustomLookAtTwistModifier.GainState m_gainStateY;
         
         public virtual void Read(PackFileDeserializer des, BinaryReaderEx br)
         {

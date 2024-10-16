@@ -24,6 +24,12 @@ namespace HKX2
         public int m_variableIndex;
         public sbyte m_bitIndex;
         public BindingType m_bindingType;
+        public hkReflectDetailOpaque m_memberType;
+        public int m_offsetInObjectPlusOne;
+        public int m_offsetInArrayPlusOne;
+        public int m_rootVariableIndex;
+        public sbyte m_variableType;
+        public sbyte m_flags;
         
         public virtual void Read(PackFileDeserializer des, BinaryReaderEx br)
         {

@@ -14,6 +14,12 @@ namespace HKX2
         public string m_onGenerateScript;
         public string m_onHandleEventScript;
         public string m_onDeactivateScript;
+        public int m_refOnActivate;
+        public int m_refOnPreUpdate;
+        public int m_refOnGenerate;
+        public int m_refOnHandleEvent;
+        public int m_refOnDeactivate;
+        public float m_timeStep;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {

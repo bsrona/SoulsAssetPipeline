@@ -28,6 +28,14 @@ namespace HKX2
         public short m_flags;
         public bool m_subtractLastChild;
         public List<hkbBlenderGeneratorChild> m_children;
+        public List<hkReflectDetailOpaque> m_childrenInternalStates;
+        public List<hkReflectDetailOpaque> m_sortedChildren;
+        public float m_endIntervalWeight;
+        public int m_numActiveChildren;
+        public short m_beginIntervalIndex;
+        public short m_endIntervalIndex;
+        public bool m_initSync;
+        public bool m_doSubtractiveBlend;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {

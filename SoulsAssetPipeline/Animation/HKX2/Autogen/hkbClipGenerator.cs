@@ -27,7 +27,7 @@ namespace HKX2
             FLAG_IGNORE_MOTION = 32,
         }
         
-        public string m_animationBundleName;
+        //public string m_animationBundleName;
         public string m_animationName;
         public hkbClipTriggerArray m_triggers;
         public uint m_userPartitionMask;
@@ -37,14 +37,30 @@ namespace HKX2
         public float m_playbackSpeed;
         public float m_enforcedDuration;
         public float m_userControlledTimeFraction;
-        public short m_animationBindingIndex;
+        //public short m_animationBindingIndex;
         public PlaybackMode m_mode;
         public sbyte m_flags;
+        public short m_animationInternalId;
+        public List<hkReflectDetailOpaque> m_animDatas;
+        public hkReflectDetailOpaque m_animationControl;
+        public hkReflectDetailOpaque m_originalTriggers;
+        public hkReflectDetailOpaque m_mapperData;
+        public hkReflectDetailOpaque m_binding;
+        public int m_numAnimationTracks;
+        public hkQsTransform m_extractedMotion;
+        public List<hkReflectDetailOpaque> m_echos;
+        public float m_localTime;
+        public float m_time;
+        public float m_previousUserControlledTimeFraction;
+        public int m_bufferSize;
+        public bool m_atEnd;
+        public bool m_ignoreStartTime;
+        public bool m_pingPongBackward;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {
             base.Read(des, br);
-            m_animationBundleName = des.ReadStringPointer(br);
+            //m_animationBundleName = des.ReadStringPointer(br);
             m_animationName = des.ReadStringPointer(br);
             m_triggers = des.ReadClassPointer<hkbClipTriggerArray>(br);
             m_userPartitionMask = br.ReadUInt32();
@@ -54,7 +70,7 @@ namespace HKX2
             m_playbackSpeed = br.ReadSingle();
             m_enforcedDuration = br.ReadSingle();
             m_userControlledTimeFraction = br.ReadSingle();
-            m_animationBindingIndex = br.ReadInt16();
+            //m_animationBindingIndex = br.ReadInt16();
             m_mode = (PlaybackMode)br.ReadSByte();
             m_flags = br.ReadSByte();
             br.ReadUInt64();
@@ -82,7 +98,7 @@ namespace HKX2
         public override void Write(PackFileSerializer s, BinaryWriterEx bw)
         {
             base.Write(s, bw);
-            s.WriteStringPointer(bw, m_animationBundleName);
+            //s.WriteStringPointer(bw, m_animationBundleName);
             s.WriteStringPointer(bw, m_animationName);
             s.WriteClassPointer<hkbClipTriggerArray>(bw, m_triggers);
             bw.WriteUInt32(m_userPartitionMask);
@@ -92,7 +108,7 @@ namespace HKX2
             bw.WriteSingle(m_playbackSpeed);
             bw.WriteSingle(m_enforcedDuration);
             bw.WriteSingle(m_userControlledTimeFraction);
-            bw.WriteInt16(m_animationBindingIndex);
+            //bw.WriteInt16(m_animationBindingIndex);
             bw.WriteSByte((sbyte)m_mode);
             bw.WriteSByte(m_flags);
             bw.WriteUInt64(0);

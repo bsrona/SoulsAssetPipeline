@@ -21,6 +21,11 @@ namespace HKX2
         public float m_extrapolationTimeStep;
         public float m_handleChangeSpeed;
         public HandleChangeMode m_handleChangeMode;
+        public hkbHandle m_oldHandle;
+        public Vector4 m_oldHandlePosition;
+        public Quaternion m_oldHandleRotation;
+        public float m_timeSinceLastModify;
+        public bool m_smoothlyChangingHandles;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {

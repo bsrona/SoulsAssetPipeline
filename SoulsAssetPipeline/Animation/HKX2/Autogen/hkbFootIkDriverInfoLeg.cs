@@ -21,7 +21,14 @@ namespace HKX2
         public short m_kneeIndex;
         public short m_kneeSiblingIndex;
         public short m_ankleIndex;
-        public bool m_ForceFootGround;
+        //public bool m_ForceFootGround;
+        public float m_maxFootPitchDegrees;
+        public float m_minFootPitchDegrees;
+        public float m_maxFootRollDegrees;
+        public float m_minFootRollDegrees;
+        public float m_heelOffsetFromAnkle;
+        public bool m_favorToeInterpenetrationOverSteepSlope;
+        public bool m_favorHeelInterpenetrationOverSteepSlope;
         
         public virtual void Read(PackFileDeserializer des, BinaryReaderEx br)
         {
@@ -38,7 +45,7 @@ namespace HKX2
             m_kneeIndex = br.ReadInt16();
             m_kneeSiblingIndex = br.ReadInt16();
             m_ankleIndex = br.ReadInt16();
-            m_ForceFootGround = br.ReadBoolean();
+            //m_ForceFootGround = br.ReadBoolean();
             br.ReadUInt64();
             br.ReadUInt32();
             br.ReadByte();
@@ -59,7 +66,7 @@ namespace HKX2
             bw.WriteInt16(m_kneeIndex);
             bw.WriteInt16(m_kneeSiblingIndex);
             bw.WriteInt16(m_ankleIndex);
-            bw.WriteBoolean(m_ForceFootGround);
+            //bw.WriteBoolean(m_ForceFootGround);
             bw.WriteUInt64(0);
             bw.WriteUInt32(0);
             bw.WriteByte(0);

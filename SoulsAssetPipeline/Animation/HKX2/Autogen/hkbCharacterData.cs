@@ -17,12 +17,14 @@ namespace HKX2
         public hkbVariableValueSet m_characterPropertyValues;
         public hkbFootIkDriverInfo m_footIkDriverInfo;
         public hkbHandIkDriverInfo m_handIkDriverInfo;
-        public hkReferencedObject m_aiControlDriverInfo;
+        //public hkReferencedObject m_aiControlDriverInfo;
         public hkbCharacterStringData m_stringData;
         public hkbMirroredSkeletonInfo m_mirroredSkeletonInfo;
         public List<short> m_boneAttachmentBoneIndices;
         public List<Matrix4x4> m_boneAttachmentTransforms;
         public float m_scale;
+        public short m_numHands;
+        public List<hkbCustomPropertySheet> m_propertySheets;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {
@@ -38,7 +40,7 @@ namespace HKX2
             m_characterPropertyValues = des.ReadClassPointer<hkbVariableValueSet>(br);
             m_footIkDriverInfo = des.ReadClassPointer<hkbFootIkDriverInfo>(br);
             m_handIkDriverInfo = des.ReadClassPointer<hkbHandIkDriverInfo>(br);
-            m_aiControlDriverInfo = des.ReadClassPointer<hkReferencedObject>(br);
+            //m_aiControlDriverInfo = des.ReadClassPointer<hkReferencedObject>(br);
             m_stringData = des.ReadClassPointer<hkbCharacterStringData>(br);
             m_mirroredSkeletonInfo = des.ReadClassPointer<hkbMirroredSkeletonInfo>(br);
             m_boneAttachmentBoneIndices = des.ReadInt16Array(br);
@@ -61,7 +63,7 @@ namespace HKX2
             s.WriteClassPointer<hkbVariableValueSet>(bw, m_characterPropertyValues);
             s.WriteClassPointer<hkbFootIkDriverInfo>(bw, m_footIkDriverInfo);
             s.WriteClassPointer<hkbHandIkDriverInfo>(bw, m_handIkDriverInfo);
-            s.WriteClassPointer<hkReferencedObject>(bw, m_aiControlDriverInfo);
+            //s.WriteClassPointer<hkReferencedObject>(bw, m_aiControlDriverInfo);
             s.WriteClassPointer<hkbCharacterStringData>(bw, m_stringData);
             s.WriteClassPointer<hkbMirroredSkeletonInfo>(bw, m_mirroredSkeletonInfo);
             s.WriteInt16Array(bw, m_boneAttachmentBoneIndices);

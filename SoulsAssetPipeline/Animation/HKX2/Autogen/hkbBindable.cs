@@ -9,6 +9,9 @@ namespace HKX2
         public override uint Signature { get => 1699538787; }
         
         public hkbVariableBindingSet m_variableBindingSet;
+		public List<hkReflectDetailOpaque> m_cachedBindables;
+		public bool m_areBindablesCached;
+		public bool m_hasEnableChanged;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {

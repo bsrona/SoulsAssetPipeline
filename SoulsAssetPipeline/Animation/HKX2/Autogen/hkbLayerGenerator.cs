@@ -16,6 +16,9 @@ namespace HKX2
         public List<hkbLayer> m_layers;
         public short m_indexOfSyncMasterChild;
         public ushort m_flags;
+        public int m_numActiveLayers;
+        public List<hkReflectDetailOpaque> m_layerInternalStates;
+        public bool m_initSync;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {

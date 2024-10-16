@@ -37,6 +37,21 @@ namespace HKX2
         public StateMachineSelfTransitionMode m_selfTransitionMode;
         public List<hkbStateMachineStateInfo> m_states;
         public hkbStateMachineTransitionInfoArray m_wildcardTransitions;
+        public int m_currentStateId;
+        public bool m_isActive;
+        public hkReflectDetailOpaque m_stateIdToIndexMap;
+        public List<hkReflectDetailOpaque> m_activeTransitions;
+        public List<hkReflectDetailOpaque> m_transitionFlags;
+        public List<hkReflectDetailOpaque> m_wildcardTransitionFlags;
+        public List<hkReflectDetailOpaque> m_delayedTransitions;
+        public float m_timeInState;
+        public float m_lastLocalTime;
+        public int m_previousStateId;
+        public int m_nextStartStateIndexOverride;
+        public bool m_stateOrTransitionChanged;
+        public bool m_echoNextUpdate;
+        public bool m_hasEventlessWildcardTransitions;
+        public hkReflectDetailOpaque m_eventIdToTransitionInfoIndicesMap;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {

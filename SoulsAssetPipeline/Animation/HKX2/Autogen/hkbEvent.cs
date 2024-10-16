@@ -8,6 +8,7 @@ namespace HKX2
     {
         public override uint Signature { get => 1041225744; }
         
+        public hkReflectDetailOpaque m_sender;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {

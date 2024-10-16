@@ -18,6 +18,7 @@ namespace HKX2
         public float m_errorUpDownBias;
         public float m_alignWorldFromModelGain;
         public float m_hipOrientationGain;
+        public float m_ankleRotationGain;
         
         public virtual void Read(PackFileDeserializer des, BinaryReaderEx br)
         {

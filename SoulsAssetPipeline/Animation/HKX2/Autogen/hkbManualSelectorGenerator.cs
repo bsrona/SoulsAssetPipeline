@@ -13,6 +13,11 @@ namespace HKX2
         public hkbCustomIdSelector m_indexSelector;
         public bool m_selectedIndexCanChangeAfterActivate;
         public hkbTransitionEffect m_generatorChangedTransitionEffect;
+        public hkbEventProperty m_sentOnClipEnd;
+        public List<short> m_generatorPreDeleteIndex;
+        public short m_currentGeneratorIndex;
+        public short m_generatorIndexAtActivate;
+        public List<hkReflectDetailOpaque> m_activeTransitions;
         public int m_endOfClipEventId;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)

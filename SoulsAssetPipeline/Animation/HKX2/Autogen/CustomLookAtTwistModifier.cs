@@ -54,6 +54,9 @@ namespace HKX2
         public short m_SensingAngle;
         public SetAngleMethod m_setAngleMethod;
         public bool m_isAdditive;
+        public List<hkReflectDetailOpaque> m_twistModifierXArray;
+        public List<hkReflectDetailOpaque> m_twistModifierYArray;
+        public Vector4 m_currentLookAtTargetPos;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {

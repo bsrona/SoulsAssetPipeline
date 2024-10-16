@@ -8,6 +8,9 @@ namespace HKX2
     {
         public override uint Signature { get => 2908966782; }
         
+        public hkbGeneratorPartitionInfo m_partitionInfo;
+        public hkReflectDetailOpaque m_syncInfo;
+        public List<long> m_pad;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {

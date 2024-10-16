@@ -4,15 +4,15 @@ using System.Numerics;
 
 namespace HKX2
 {
-    public partial class hkBitFieldBase : IHavokObject
+    public partial class hkBitFieldBasehkBitFieldStoragehkArrayunsignedinthkContainerHeapAllocator : IHavokObject
     {
         public virtual uint Signature { get => 1966625691; }
         
-        public hkBitFieldStorage m_storage;
+        public hkBitFieldStoragehkArrayunsignedinthkContainerHeapAllocator m_storage;
         
         public virtual void Read(PackFileDeserializer des, BinaryReaderEx br)
         {
-            m_storage = new hkBitFieldStorage();
+            m_storage = new hkBitFieldStoragehkArrayunsignedinthkContainerHeapAllocator();
             m_storage.Read(des, br);
         }
         

@@ -10,6 +10,7 @@ namespace HKX2
         
         public hknpCompressedMeshShapeTree m_meshTree;
         public hkcdSimdTree m_simdTree;
+        public hkcdStaticMeshTreeBaseConnectivity m_connectivity;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {
@@ -18,6 +19,8 @@ namespace HKX2
             m_meshTree.Read(des, br);
             m_simdTree = new hkcdSimdTree();
             m_simdTree.Read(des, br);
+            m_connectivity = new hkcdStaticMeshTreeBaseConnectivity();
+            m_connectivity.Read(des, br);
             br.ReadUInt64();
         }
         
@@ -26,6 +29,7 @@ namespace HKX2
             base.Write(s, bw);
             m_meshTree.Write(s, bw);
             m_simdTree.Write(s, bw);
+            m_connectivity.Write(s, bw);
             bw.WriteUInt64(0);
         }
     }

@@ -17,6 +17,7 @@ namespace HKX2
         public int m_stateId;
         public float m_probability;
         public bool m_enable;
+        public bool m_hasEventlessTransitions;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {

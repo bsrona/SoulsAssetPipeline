@@ -19,6 +19,7 @@ namespace HKX2
         public int m_numPrimitiveKeys;
         public int m_bitsPerKey;
         public uint m_maxKeyValue;
+        public byte m_primitiveStoresIsFlatConvex;
         public List<hkcdStaticMeshTreeBaseSection> m_sections;
         public List<hkcdStaticMeshTreeBasePrimitive> m_primitives;
         public List<ushort> m_sharedVerticesIndex;
@@ -29,6 +30,7 @@ namespace HKX2
             m_numPrimitiveKeys = br.ReadInt32();
             m_bitsPerKey = br.ReadInt32();
             m_maxKeyValue = br.ReadUInt32();
+            m_primitiveStoresIsFlatConvex = br.ReadByte();
             br.ReadUInt32();
             m_sections = des.ReadClassArray<hkcdStaticMeshTreeBaseSection>(br);
             m_primitives = des.ReadClassArray<hkcdStaticMeshTreeBasePrimitive>(br);
@@ -41,6 +43,7 @@ namespace HKX2
             bw.WriteInt32(m_numPrimitiveKeys);
             bw.WriteInt32(m_bitsPerKey);
             bw.WriteUInt32(m_maxKeyValue);
+            bw.WriteByte(m_primitiveStoresIsFlatConvex);
             bw.WriteUInt32(0);
             s.WriteClassArray<hkcdStaticMeshTreeBaseSection>(bw, m_sections);
             s.WriteClassArray<hkcdStaticMeshTreeBasePrimitive>(bw, m_primitives);

@@ -77,25 +77,15 @@ namespace SoulsAssetPipeline.Animation
 
             if (track == -1)
             {
-                var skeleTransform = hkaSkeleton.Transforms[hkxBoneIndex];
+                NewBlendableTransform defaultBoneTransformation = NewBlendableTransform.Identity;
 
-                NewBlendableTransform defaultBoneTransformation = new NewBlendableTransform();
+                if (!IsAdditiveBlend)
+                {
+					var skeleTransform = hkaSkeleton.Transforms[hkxBoneIndex];
 
-                defaultBoneTransformation.Scale.X = skeleTransform.Scale.Vector.X;
-                defaultBoneTransformation.Scale.Y = skeleTransform.Scale.Vector.Y;
-                defaultBoneTransformation.Scale.Z = skeleTransform.Scale.Vector.Z;
-
-                defaultBoneTransformation.Rotation = new Quaternion(
-                    skeleTransform.Rotation.Vector.X,
-                    skeleTransform.Rotation.Vector.Y,
-                    skeleTransform.Rotation.Vector.Z,
-                    skeleTransform.Rotation.Vector.W);
-
-                defaultBoneTransformation.Translation.X = skeleTransform.Position.Vector.X;
-                defaultBoneTransformation.Translation.Y = skeleTransform.Position.Vector.Y;
-                defaultBoneTransformation.Translation.Z = skeleTransform.Position.Vector.Z;
-
-                return defaultBoneTransformation;
+                    defaultBoneTransformation = NewBlendableTransform.FromHKXTransform(skeleTransform);
+				}
+				return defaultBoneTransformation;
             }
 
             return GetTransformOnFrame(track, frame, enableLooping);

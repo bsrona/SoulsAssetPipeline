@@ -26,6 +26,10 @@ namespace HKX2
         
         public SelfTransitionMode m_selfTransitionMode;
         public EventMode m_eventMode;
+        public EventMode m_defaultEventMode;
+        public hkReflectDetailOpaque m_patchedBindingInfo;
+        public hkReflectDetailOpaque m_fromGenerator;
+        public hkReflectDetailOpaque m_toGenerator;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {

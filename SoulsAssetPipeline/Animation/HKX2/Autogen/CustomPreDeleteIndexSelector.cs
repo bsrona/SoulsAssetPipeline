@@ -4,25 +4,19 @@ using System.Numerics;
 
 namespace HKX2
 {
-    public partial class hkbBehaviorReferenceGenerator : hkbGenerator
+    public partial class CustomPreDeleteIndexSelector : hkbCustomIdSelector
     {
-        public override uint Signature { get => 357552042; }
+        public override uint Signature { get => 3052380726; }
         
-        public string m_behaviorName;
-        public hkAssetRefPtr m_behavior;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {
             base.Read(des, br);
-            m_behaviorName = des.ReadStringPointer(br);
-            br.ReadUInt64();
         }
         
         public override void Write(PackFileSerializer s, BinaryWriterEx bw)
         {
             base.Write(s, bw);
-            s.WriteStringPointer(bw, m_behaviorName);
-            bw.WriteUInt64(0);
         }
     }
 }

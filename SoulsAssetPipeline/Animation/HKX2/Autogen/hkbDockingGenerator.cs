@@ -29,6 +29,10 @@ namespace HKX2
         public hkbGenerator m_child;
         public int m_intervalStart;
         public int m_intervalEnd;
+        public float m_localTime;
+        public float m_previousLocalTime;
+        public float m_intervalStartLocalTime;
+        public float m_intervalEndLocalTime;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {

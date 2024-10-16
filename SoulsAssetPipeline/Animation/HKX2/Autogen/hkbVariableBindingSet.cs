@@ -10,6 +10,8 @@ namespace HKX2
         
         public List<hkbVariableBindingSetBinding> m_bindings;
         public int m_indexOfBindingToEnable;
+        public bool m_hasOutputBinding;
+        public bool m_initializedOffsets;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {

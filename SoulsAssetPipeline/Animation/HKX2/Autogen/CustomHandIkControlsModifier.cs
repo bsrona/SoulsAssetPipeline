@@ -4,25 +4,22 @@ using System.Numerics;
 
 namespace HKX2
 {
-    public partial class hkbBehaviorReferenceGenerator : hkbGenerator
+    public partial class CustomHandIkControlsModifier : hkbHandIkControlsModifier
     {
-        public override uint Signature { get => 357552042; }
+        public override uint Signature { get => 220736967; }
         
-        public string m_behaviorName;
-        public hkAssetRefPtr m_behavior;
+        public List<hkQsTransform> m_unmodifiedWristTransform;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {
             base.Read(des, br);
-            m_behaviorName = des.ReadStringPointer(br);
-            br.ReadUInt64();
+            m_unmodifiedWristTransform = des.ReadClassArray<hkQsTransform>(br);
         }
         
         public override void Write(PackFileSerializer s, BinaryWriterEx bw)
         {
             base.Write(s, bw);
-            s.WriteStringPointer(bw, m_behaviorName);
-            bw.WriteUInt64(0);
+            s.WriteClassArray<hkQsTransform>(bw, m_unmodifiedWristTransform);
         }
     }
 }

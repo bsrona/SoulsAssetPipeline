@@ -17,25 +17,16 @@ namespace HKX2
             NUM_TYPES = 4,
         }
         
-        public byte m_indices_0;
-        public byte m_indices_1;
-        public byte m_indices_2;
-        public byte m_indices_3;
+        public List<byte> m_indices;
         
         public virtual void Read(PackFileDeserializer des, BinaryReaderEx br)
         {
-            m_indices_0 = br.ReadByte();
-            m_indices_1 = br.ReadByte();
-            m_indices_2 = br.ReadByte();
-            m_indices_3 = br.ReadByte();
+            m_indices = des.ReadByteArray(br);
         }
         
         public virtual void Write(PackFileSerializer s, BinaryWriterEx bw)
         {
-            bw.WriteByte(m_indices_0);
-            bw.WriteByte(m_indices_1);
-            bw.WriteByte(m_indices_2);
-            bw.WriteByte(m_indices_3);
+            s.WriteByteArray(bw, m_indices);
         }
     }
 }

@@ -9,17 +9,18 @@ namespace HKX2
         public override uint Signature { get => 1600181558; }
         
         public hknpCompressedMeshShapeData m_data;
-        public hkBitField m_quadIsFlat;
         public hkBitField m_triangleIsInterior;
+        public int m_numTriangles;
+        public int m_numConvexShapes;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {
             base.Read(des, br);
             m_data = des.ReadClassPointer<hknpCompressedMeshShapeData>(br);
-            m_quadIsFlat = new hkBitField();
-            m_quadIsFlat.Read(des, br);
             m_triangleIsInterior = new hkBitField();
             m_triangleIsInterior.Read(des, br);
+            m_numTriangles = br.ReadInt32();
+            m_numConvexShapes = br.ReadInt32();
             br.ReadUInt64();
         }
         
@@ -27,8 +28,9 @@ namespace HKX2
         {
             base.Write(s, bw);
             s.WriteClassPointer<hknpCompressedMeshShapeData>(bw, m_data);
-            m_quadIsFlat.Write(s, bw);
             m_triangleIsInterior.Write(s, bw);
+            bw.WriteInt32(m_numTriangles);
+            bw.WriteInt32(m_numConvexShapes);
             bw.WriteUInt64(0);
         }
     }

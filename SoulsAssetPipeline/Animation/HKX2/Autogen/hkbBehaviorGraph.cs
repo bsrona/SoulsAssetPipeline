@@ -17,6 +17,37 @@ namespace HKX2
         public VariableMode m_variableMode;
         public hkbGenerator m_rootGenerator;
         public hkbBehaviorGraphData m_data;
+        public List<hkReflectDetailOpaque> m_uniqueIdPool;
+        public hkReflectDetailOpaque m_idToStateMachineTemplateMap;
+        public hkReflectDetailOpaque m_mirroredExternalIdMap;
+        public hkReflectDetailOpaque m_pseudoRandomGenerator;
+        public hkAssetRefPtr m_template;
+        public hkReflectDetailOpaque m_activeNodes;
+        public hkReflectDetailOpaque m_globalTransitionData;
+        public hkReflectDetailOpaque m_eventIdMap;
+        public hkReflectDetailOpaque m_attributeIdMap;
+        public hkReflectDetailOpaque m_variableIdMap;
+        public hkReflectDetailOpaque m_characterPropertyIdMap;
+        public hkReflectDetailOpaque m_animationIdMap;
+        public hkReflectDetailOpaque m_variableValueSet;
+        public hkReflectDetailOpaque m_nodeTemplateToCloneMap;
+        public hkReflectDetailOpaque m_stateListenerTemplateToCloneMap;
+        public List<hkReflectDetailOpaque> m_recentlyCreatedClones;
+        public hkReflectDetailOpaque m_nodePartitionInfo;
+        public int m_numIntermediateOutputs;
+        public List<hkReflectDetailOpaque> m_intermediateOutputSizes;
+        public List<hkReflectDetailOpaque> m_jobs;
+        public List<hkReflectDetailOpaque> m_allPartitionMemory;
+        public List<hkReflectDetailOpaque> m_internalToRootVariableIdMap;
+        public List<hkReflectDetailOpaque> m_internalToCharacterCharacterPropertyIdMap;
+        public List<hkReflectDetailOpaque> m_internalToRootAttributeIdMap;
+        public ushort m_nextUniqueId;
+        public bool m_isActive;
+        public bool m_isLinked;
+        public bool m_updateActiveNodes;
+        public bool m_updateActiveNodesForEnable;
+        public bool m_checkNodeValidity;
+        public bool m_stateOrTransitionChanged;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {

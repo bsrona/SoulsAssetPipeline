@@ -49,6 +49,17 @@ namespace HKX2
         public hkbTransitionEffect m_generatorChangedTransitionEffect;
         public int m_checkAnimEndSlotNo;
         public ReplanningAI m_replanningAI;
+        public hkbEvent m_endEvent;
+        public float m_preLocalTime;
+        public float m_localTime;
+        public float m_animeDuration;
+        public int m_argTaeId;
+        public hkReflectDetailOpaque m_scriptGenerator;
+        public int m_stateId;
+        public bool m_isInTransFrom;
+        public sbyte m_currentGeneratorIndex;
+        public sbyte m_generatorIndexAtActivate;
+        public List<hkReflectDetailOpaque> m_activeTransitions;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {

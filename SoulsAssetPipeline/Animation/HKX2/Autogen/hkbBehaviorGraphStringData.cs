@@ -12,6 +12,7 @@ namespace HKX2
         public List<string> m_attributeNames;
         public List<string> m_variableNames;
         public List<string> m_characterPropertyNames;
+        public List<string> m_animationNames;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {
