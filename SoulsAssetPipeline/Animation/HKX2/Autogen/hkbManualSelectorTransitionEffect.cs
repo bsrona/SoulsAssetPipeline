@@ -11,6 +11,10 @@ namespace HKX2
         public List<hkbTransitionEffect> m_transitionEffects;
         public byte m_selectedIndex;
         public hkbCustomIdSelector m_indexSelector;
+        public byte m_currentTransitionEffectIndex;
+        public hkReflectDetailOpaque m_currentTransitionEffect;
+        public hkReflectDetailOpaque m_parentStateMachine;
+        public hkReflectDetailOpaque m_referenceBehavior;
         
         public override void Read(PackFileDeserializer des, BinaryReaderEx br)
         {
